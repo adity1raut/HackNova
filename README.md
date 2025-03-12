@@ -39,7 +39,7 @@ Develop a **College Management Website** that centralizes student and faculty da
 ## How to Run the Project
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repository-url.git
+   git clone https://github.com/adity1raut/HackNova.git
    cd hacknova
    ```
 2. Install dependencies:
