@@ -1,0 +1,14 @@
+/* App.css or any other CSS file */
+.navbar {
+    position: fixed; /* or 'sticky' depending on your needs */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure Navbar is above other content */
+  }
+  
+  .main-content {
+    position: relative;
+    z-index: 1; /* Ensure main content is below Navbar */
+    padding-top: 60px; /* Adjust this value based on the height of your Navbar */
+  }

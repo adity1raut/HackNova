@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* General Reset */
+* {
+    box-sizing: border-box;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+  }
+  
