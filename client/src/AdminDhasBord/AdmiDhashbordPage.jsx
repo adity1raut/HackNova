@@ -9,7 +9,44 @@ const AdminDashboardPage = () => {
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-20 gap-6">
         {/* Elections Card */}
-
+        <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <Bell className="w-6 h-6 text-yellow-600" />
+            <h2 className="text-xl font-semibold text-gray-800">Update TimeTable</h2>
+          </div>
+          <div className="space-y-2 mb-6">
+            <div className="flex items-center">
+              <span className="text-gray-600">
+                Information related to the different issues of the college and their overview released by the administration.
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/admin/dashboard/timetable')}
+            className="w-full py-2 px-4 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors duration-300"
+          >
+            View Details
+          </button>
+        </div>
+        <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <Bell className="w-6 h-6 text-yellow-600" />
+            <h2 className="text-xl font-semibold text-gray-800">Add Acadamic Calendar</h2>
+          </div>
+          <div className="space-y-2 mb-6">
+            <div className="flex items-center">
+              <span className="text-gray-600">
+                Information related to the different issues of the college and their overview released by the administration.
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/admin/dashboard/term')}
+            className="w-full py-2 px-4 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors duration-300"
+          >
+            View Details
+          </button>
+        </div>
         {/* Facility Booking Card */}
         <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
           <div className="flex items-center gap-3 mb-4">
@@ -19,9 +56,9 @@ const AdminDashboardPage = () => {
           <div className="space-y-2 mb-6">
             <div className="flex items-center">
               <span className="text-gray-600">Displays the current status of the different fascilities of the institute.</span>
-          
+
             </div>
-          
+
           </div>
           <button
             onClick={() => navigate('/admin/dashboard/booking')}
@@ -56,9 +93,9 @@ const AdminDashboardPage = () => {
           </div>
           <div className="space-y-2 mb-6">
             <div className="flex items-center">
-            <span className="text-gray-600">here are the complaints posted by college peoples . complaints Management of a students</span>
+              <span className="text-gray-600">here are the complaints posted by college peoples . complaints Management of a students</span>
             </div>
-            
+
           </div>
           <button
             onClick={() => navigate('/admin/dashboard/complaints')}

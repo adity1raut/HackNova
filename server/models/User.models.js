@@ -20,6 +20,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    attendance: [
+      {
+        subject: { type: String, required: true }, 
+        presentDays: { type: Number, default: 0 }, 
+        totalDays: { type: Number, default: 0 } 
+      }
+    ],
     profile: {
       type: String,
       required: true,

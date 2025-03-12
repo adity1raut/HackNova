@@ -398,12 +398,6 @@
       <div className="bg-white shadow-lg rounded-xl">
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="/student/complaints" className="w-full">
-              <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
-                <MessageSquare size={20} />
-                Complaints
-              </button>
-            </a>
             
             <a href="/student/leave-application" className="w-full">
               <button className="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
@@ -412,14 +406,14 @@
               </button>
             </a>
             
-            <a href="/student/election-form" className="w-full">
+            <a href="/student/attendence" className="w-full">
               <button className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
                 <Vote size={20} />
-                Election Application
+                Attendance
               </button>
             </a>
             
-            <a href="/student/doctor/appointment" className="w-full">
+            <a href="/dashboard/assignment" className="w-full">
         <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
           <Clipboard size={20} />
           View Assignment

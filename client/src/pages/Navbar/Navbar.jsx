@@ -162,7 +162,7 @@ const EnhancedNavbar = () => {
     
   // Set dashboard link based on user type
   const dashboardLink = isStudent 
-    ? '/student/dashboard' 
+    ? '/dashboard' 
     : userType === 'admin'
     ? '/admin/dashboard'
     : '/faculty/dashboard';
@@ -173,19 +173,19 @@ const EnhancedNavbar = () => {
       icon: <GraduationCap size={16} />, 
       name: 'Student Dashboard', 
       description: 'Access your personalized student dashboard',
-      path: '/student/dashboard'
+      path: '/dashboard'
+    },
+    { 
+      icon: <GraduationCap size={16} />, 
+      name: 'Calender', 
+      description: 'Access your Calender',
+      path: '/calender'
     },
     { 
       icon: <FileText size={16} />, 
       name: 'Assignments', 
       description: 'View and submit assignments',
-      path: '/student/assignments'
-    },
-    { 
-      icon: <BookMarked size={16} />, 
-      name: 'Courses', 
-      description: 'View enrolled courses and materials',
-      path: '/student/courses'
+      path: '/dashboard/assignment'
     },
     { 
       icon: <Calendar size={16} />, 
@@ -194,10 +194,16 @@ const EnhancedNavbar = () => {
       path: '/student/schedule'
     },
     { 
+      icon: <GraduationCap size={16} />, 
+      name: 'Shedular', 
+      description: 'Access your Calender',
+      path: '/time-scheduler'
+    },
+    { 
       icon: <ClipboardList size={16} />, 
-      name: 'Grades', 
+      name: 'Faculty Schedule', 
       description: 'View your academic performance',
-      path: '/student/grades'
+      path: '/dashboard/faculty-details'
     }
   ];
 
@@ -215,7 +221,12 @@ const EnhancedNavbar = () => {
       description: 'Create and grade assignments',
       path: '/faculty/dashboard/assignment'
     },
-
+    { 
+      icon: <GraduationCap size={16} />, 
+      name: 'Calender', 
+      description: 'Access your Calender',
+      path: '/calender'
+    },
     { 
       icon: <ClipboardList size={16} />, 
       name: 'Grade Management', 

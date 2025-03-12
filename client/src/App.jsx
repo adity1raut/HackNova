@@ -28,7 +28,8 @@ import ComplaintPage from './StudentDashBord/ComplaintsPage';
 import BookingCard from './StudentDashBord/VenueBooking';
 import FacultyBook from './StudentDashBord/FacultyBook'; 
 import AdmiDhashbordPage from "./AdminDhasBord/AdmiDhashbordPage"
-import CheatingReports from "./components/Forms/CheatingFrom"
+import MakingAttendance from "./components/MakingAttendance"
+import AttendanceVisualise from "./components/AttendanceVisualise"
 import SecetrySingin from './pages/Forms/SecetrySingin';
 import AdminProfileCard from './pages/Profile/AdminProfileCard';
 import NoticeBord  from "./components/Forms/NoticeBord"
@@ -39,6 +40,10 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import FacultyDashboard from './pages/Main/FacultyDashbord';
 import AssignmentPage from './ClassRoom/pages/CreateAssignment';
 import AdminDashboard from './ClassRoom/pages/AdminAssignments';
+import AdminManageTimeTable from "./components/Admin/AdminAddTimeTable"
+import AdminAcademicTerm from "./components/Admin/AdminAcademicTerm"
+import AcademicCalendar from './AdminDhasBord/AcademicCalendar';
+import TimeScheduler from './AdminDhasBord/TimeScheduler';
 
 function App() {
   return (
@@ -70,7 +75,9 @@ function App() {
                 <Route path="/student/profile" element={<ProfilePage />} />
                 <Route path="/student/complaints" element={<ComplaintsForm />} />
                 <Route path="/student/leave-application" element={<LeaveApplicationForm />} />
+                <Route path='/student/attendence' element={<AttendanceVisualise />} />
                 <Route path="/bookings" element={<GroundBooking />} />
+
 
                 <Route path='/faculty/dashboard' element={<FacultyDashboard/>} />
                 <Route path="/faculty/dashboard/assignment" element={<AssignmentPage />} />
@@ -81,9 +88,12 @@ function App() {
                 <Route path='/faculty/dashboard/faculty-details' element={<FacultyBook/>} />
                 <Route path='/faculty/profile' element={<FacultyProfile />} />
                 <Route path="/faculty/availability" element={<FacultyAvailabilityForm />} />
+                <Route path='/faculty/make-attendece' element={<MakingAttendance/>} />
 
 
                 <Route path="/bookings/details/:name" element={<VenueDetails />} />
+                <Route path='/calender' element={<AcademicCalendar />} />
+                <Route path='/time-schedule' element={<TimeScheduler />} />
 
 
                 <Route path='/admin-dashboard/' element={<AdmiDhashbordPage />} />
@@ -91,6 +101,8 @@ function App() {
                 <Route path='/admin/dashboard/leaves' element={<AdminLeaveDashboard />} />
                 <Route path='/admin/dashboard/booking' element={<AdminBookingDashboard />} />
                 <Route path='/admin/profile' element={<AdminProfileCard />} />
+                <Route path='/admin/dashboard/timetable' element={<AdminManageTimeTable />} />
+                <Route path='/admin/dashboard/term' element={<AdminAcademicTerm />} />
 
                 <Route path='/admin/dashboard/notices' element={<NoticeList />} />
               </Route>

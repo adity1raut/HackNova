@@ -354,7 +354,7 @@ const FacultyProfile = () => {
                     Update Availability
                   </button>
                 </Link>
-                <Link to="/booking">
+                <Link to="/faculty/make-attendece">
                   <button className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Mark Attendence
                   </button>
