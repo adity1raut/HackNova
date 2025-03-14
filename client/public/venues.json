@@ -1,0 +1,287 @@
+[
+  {
+    "basicInfo": {
+      "venue": "Auditorium",
+      "name": "Auditorium",
+      "capacity": "400 Seats",
+      "location": "Admin Building",
+      "image": "https://res.cloudinary.com/dg6qtpags/image/upload/v1739874682/your-cloudinary-folder-name/yeq93de3i3jk5yniybz8.jpg",
+      "prize": "20,000"
+    },
+    "details": {
+      "description": "A 400-seat auditorium used for local theater performances and events, featuring a raised stage, professional-grade sound systems, and a backstage area for performers.",
+      "features": [
+        "Professional-grade sound systems",
+        "Raised stage",
+        "Backstage area",
+        "Theater lighting"
+      ],
+      "useCases": [
+        "Theater performances",
+        "Conferences",
+        "Ceremonies",
+        "Presentations"
+      ]
+    },
+    "facilities": [
+      {
+        "id": 1,
+        "name": "Community Theater Auditorium",
+        "description": "Main auditorium space with professional setup"
+      },
+      {
+        "id": 2,
+        "name": "Sound System",
+        "description": "Professional grade audio equipment"
+      },
+      {
+        "id": 3,
+        "name": "Lighting System",
+        "description": "Theater-quality lighting setup"
+      },
+      {
+        "id": 4,
+        "name": "Backstage Area",
+        "description": "Dedicated space for performers and equipment"
+      }
+    ],
+    "availability": {
+      "schedule": {
+        "openDays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "openingTime": "09:00",
+        "closingTime": "22:00"
+      },
+      "restrictions": [
+        "Prior booking required",
+        "Minimum 2 hours booking",
+        "Maximum capacity must be observed"
+      ],
+      "maintenanceDays": [
+        "Sunday"
+      ]
+    },
+    "quickInfo": {
+      "capacity": "400 Seats",
+      "price": {
+        "amount": "20,000",
+        "currency": "₹",
+        "unit": "per day"
+      },
+      "location": {
+        "building": "Admin Building",
+        "floor": "Ground Floor",
+        "landmark": "Near Main Gate"
+      }
+    },
+    "contact": {
+      "supportEmail": "support@venue.com",
+      "bookingPhone": "+91-XXX-XXX-XXXX",
+      "emergencyContact": "+91-XXX-XXX-XXXX",
+      "helpDeskHours": "9 AM to 6 PM"
+    }
+  },
+  {
+    "basicInfo": {
+      "venue": "Classrooms",
+      "name": "Classrooms",
+      "capacity": "400 Seats",
+      "location": "Admin Building",
+      "image": "https://res.cloudinary.com/dg6qtpags/image/upload/v1739874684/your-cloudinary-folder-name/o6l8nuliwj7w13xtphiz.jpg",
+      "prize": "5,000"
+    },
+    "details": {
+      "description": "The classroom is typically equipped with interactive whiteboards, projectors, high-speed internet, and ergonomic furniture to foster collaboration and creativity.",
+      "features": [
+        "Adjustable desks and chairs for comfort",
+        "Soundproof walls to minimize distractions",
+        "Air-conditioned or ventilated rooms for a comfortable atmosphere",
+        "CCTV surveillance for classroom monitoring"
+
+      ],
+      "useCases": [
+        "Workshops & Training",
+        "Conferences",
+        "Ceremonies",
+        "Hackathons & Competitions"
+      ]
+    },
+    "facilities": [
+  {
+    "id": 1,
+    "name": "Smart Board",
+    "description": "Interactive digital board for enhanced learning"
+  },
+  {
+    "id": 2,
+    "name": "Projector & Screen",
+    "description": "High-quality projector with a large display screen"
+  },
+  {
+    "id": 3,
+    "name": "Wi-Fi Connectivity",
+    "description": "High-speed internet for research and online learning"
+  },
+  {
+    "id": 8,
+    "name": "Security System",
+    "description": "CCTV monitoring for student and faculty safety"
+  }
+  ],
+    "availability": {
+      "schedule": {
+        "openDays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+          
+        ],
+        "openingTime": "09:00",
+        "closingTime": "18:00"
+      },
+      "restrictions": [
+       "Prior booking required for special sessions",
+       "Maintain silence during lectures",
+       "No food or drinks allowed",
+       "Maximum capacity must be observed",
+       "Classroom must be kept clean and organized"
+      ],
+      "maintenanceDays": [
+        "Saturday",
+        "Sunday"
+      ]
+    },
+    "quickInfo": {
+      "capacity": "400 Seats",
+      "price": {
+        "amount": "5,000",
+        "currency": "₹",
+        "unit": "per day"
+      },
+      "location": {
+        "building": "ExTc Building",
+        "floor": "Ground Floor",
+        "landmark": "Near GYM"
+      }
+    },
+    "contact": {
+      "supportEmail": "support@venue.com",
+      "bookingPhone": "+91-XXX-XXX-XXXX",
+      "emergencyContact": "+91-XXX-XXX-XXXX",
+      "helpDeskHours": "9 AM to 6 PM"
+    }
+  },
+  {
+    
+  "basicInfo": {
+      "venue": "Ground",
+      "name": "Ground",
+      "capacity": "400 Seats",
+      "location": "Admin Building",
+      "image": "https://res.cloudinary.com/dg6qtpags/image/upload/v1739874685/your-cloudinary-folder-name/giq98eafvxn4pz6j5acc.webp",
+      "prize": "20,000"
+    },
+    "details": {
+      "description": "Open outdoor space suitable for various events",
+      "features": [
+        "Standard Playing Surface",
+        "Lighting System",
+        "Seating Area",
+        "First Aid Station",
+        "Drinking Water Facilities"
+        
+      ],
+      "useCases": [
+        "Professional Training",
+        "Community Sports Events",
+        "Fitness and Recreational Activities",
+        "State and National Championships"
+      ]
+    },
+    "facilities": [
+  {
+    "id": 1,
+    "name": "Cricket Ground",
+    "description": "Well-maintained cricket field with pitch, boundary markings, and seating area"
+  },
+  {
+    "id": 2,
+    "name": "Tennis Court",
+    "description": "Standard-sized court with synthetic/turf surface and professional net setup"
+  },
+  {
+    "id": 3,
+    "name": "Basketball Court",
+    "description": "Regulation basketball court with hoops, markings, and spectator seating"
+  },
+  {
+    "id": 4,
+    "name": "Volleyball Court",
+    "description": "Sand or hard surface court with adjustable net and boundary lines"
+  },
+  {
+    "id": 5,
+    "name": "Kho-Kho Court",
+    "description": "Properly marked field with central lane and pole setup for competitive play"
+  },
+  {
+    "id": 6,
+    "name": "Kabaddi Court",
+    "description": "Mud or synthetic surface with regulation markings for Kabaddi matches"
+  }
+  ],
+
+    "availability": {
+      "schedule": {
+        "openDays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "openingTime": "06:00",
+        "closingTime": "18:00"
+      },
+      "restrictions": [
+        "Prior booking required",
+        "Minimum 1-hour booking for practice sessions",
+        "Minimum 2-hour booking for matches",
+        "Proper sports attire required",
+        "No unauthorized coaching or training sessions"
+      ],
+      "maintenanceDays": [
+        "Not Prior Day"
+      ]
+    },
+    "quickInfo": {
+      "capacity": "500 ",
+      "price": {
+        "amount": "10,000",
+        "currency": "₹",
+        "unit": "per day"
+      },
+      "location": {
+        "building": "Near Sahyadri Hostel",
+        "floor": "N/A",
+        "landmark": "Near Sahyadri Hostel"
+      }
+    },
+    "contact": {
+      "supportEmail": "support@venue.com",
+      "bookingPhone": "+91-XXX-XXX-XXXX",
+      "emergencyContact": "+91-XXX-XXX-XXXX",
+      "helpDeskHours": "9 AM to 6 PM"
+    }
+  }
+]
