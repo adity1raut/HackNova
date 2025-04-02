@@ -1,259 +1,258 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { User, Clock, Calendar, Loader2, RefreshCcw, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Calendar, Clock, UserCircle, Users, FileText } from 'lucide-react';
+import LeaveTable from '../components/Tables/LeaveTable';
 
-const LeaveApplication = () => {
-  const [applications, setApplications] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const LeaveApplicationForm = () => {
+  const [formData, setFormData] = useState({
+    student_information: {
+      roll_no: '',
+      student_name: '',
+      student_email: ''
+    },
+    parent_information: {
+      parent_name: '',
+      parent_email: ''
+    },
+    leave_details: {
+      reason_for_leave: '',
+      leave_start_date: '',
+      leave_end_date: ''
+    },
+    additional_information: {
+      comments: ''
+    }
+  });
 
-  useEffect(() => {
-    fetchApplications();
-  }, [page]);
+  const [activeSection, setActiveSection] = useState('student_information');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
-  const fetchApplications = async () => {
+  const handleChange = (e, section) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [name]: value
+      }
+    }));
+    // Clear validation errors when the user starts typing
+    if (validationErrors[section]?.[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [name]: ''
+        }
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
     try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await axios.get(
-        `http://localhost:4000/api/leave-applications?page=${page}&limit=10`
-      );
-      
-      setApplications(response.data.data);
-      setTotalPages(response.data.pagination.totalPages);
+      const response = await fetch('http://localhost:4000/api/leave-applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 400 && data.errors) {
+          // Handle validation errors
+          const errors = data.errors.reduce((acc, error) => {
+            const [section, field] = error.path.split('.');
+            if (!acc[section]) acc[section] = {};
+            acc[section][field] = error.msg;
+            return acc;
+          }, {});
+          setValidationErrors(errors);
+          toast.error('Please fix the errors in the form.');
+        } else {
+          throw new Error(data.message || 'Failed to submit application');
+        }
+        return;
+      }
+
+      toast.success('Leave application submitted successfully!');
+      setFormData({
+        student_information: { roll_no: '', student_name: '', student_email: '' },
+        parent_information: { parent_name: '', parent_email: '' },
+        leave_details: { reason_for_leave: '', leave_start_date: '', leave_end_date: '' },
+        additional_information: { comments: '' }
+      });
+      setActiveSection('student_information');
+      setValidationErrors({});
     } catch (error) {
-      console.error('Error fetching applications:', error);
-      setError('Failed to fetch leave applications');
-      toast.error('Error fetching leave applications. Please try again.');
+      toast.error(error.message || 'Error submitting application');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
+  const useremail = localStorage.getItem("email") ;
 
-  // Function to get status icon and color
-  const getStatusDetails = (status) => {
-    switch (status.toLowerCase()) {
-      case "approved":
-        return { icon: <CheckCircle size={20} className="text-green-600" />, color: "bg-green-100" };
-      case "rejected":
-        return { icon: <XCircle size={20} className="text-red-600" />, color: "bg-red-100" };
-      case "pending":
-        return { icon: <AlertCircle size={20} className="text-yellow-600" />, color: "bg-yellow-100" };
-      default:
-        return { icon: <AlertCircle size={20} className="text-gray-600" />, color: "bg-gray-100" };
-    }
-  };
+  const inputClassName = "mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 bg-white/50 hover:bg-white";
+  const labelClassName = "block text-sm font-medium text-gray-600 mb-1";
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-        <div className="w-full max-w-5xl border border-gray-300 rounded-lg shadow-sm p-6 bg-white hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-h-[200px]">
-            <div className="text-center text-red-600">
-              <p>{error}</p>
-              <button 
-                onClick={fetchApplications}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors flex items-center gap-2 mx-auto"
-              >
-                <RefreshCcw size={16} />
-                Retry
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-        <div className="w-full max-w-5xl border border-gray-300 rounded-lg shadow-sm p-6 bg-white hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-center">
-              <Loader2 className="h-8 w-8 animate-spin text-gray-500 mx-auto mb-4" />
-              <p className="text-gray-500">Loading leave applications...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const renderInput = (section, name, label, type = "text") => (
+    <div>
+      <label className={labelClassName}>
+        {label}<span className="text-red-500 ml-1">*</span>
+      </label>
+      <input
+        type={type}
+        name={name}
+        value={formData[section][name]}
+        onChange={(e) => handleChange(e, section)}
+        className={`${inputClassName} ${validationErrors[section]?.[name] ? 'border-red-500' : ''}`}
+        placeholder={`Enter ${label.toLowerCase()}`}
+      />
+      {validationErrors[section]?.[name] && (
+        <p className="text-red-500 text-sm mt-1">{validationErrors[section][name]}</p>
+      )}
+    </div>
+  );
 
   return (
-    <div className="flex items-center justify-center pt-20 min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-5xl border border-gray-300 rounded-lg shadow-sm p-6 bg-white hover:shadow-md transition-all duration-300">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">
-            Leave Applications
-          </h2>
-          <div className="flex items-center gap-4">
-            <p className="text-sm text-gray-500">
-              <Clock size={16} className="inline-block mr-1" />
-              {new Date().toLocaleDateString()}
-            </p>
-            <button
-              onClick={fetchApplications}
-              className="flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
-            >
-              <RefreshCcw size={16} />
-              Refresh
-            </button>
-          </div>
-        </div>
-        
-        <div className="space-y-4">
-          {applications.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              No leave applications found
-            </div>
-          ) : (
-            applications.map((application, index) => {
-              const statusDetails = getStatusDetails(application.status);
-              return (
-                <div
-                  key={index}
-                  className="p-6 rounded-lg border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-200"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Left Section: Student Details */}
-                    <div className="col-span-1 md:col-span-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {/* Student Name */}
-                        <div className="flex items-center space-x-4">
-                          <div className="p-3 bg-gray-100 rounded-full">
-                            <User className="text-purple-700" size={20} />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">
-                              Student Name
-                            </p>
-                            <p className="text-gray-900 font-semibold">
-                              {application.student_information.student_name}
-                            </p>
-                          </div>
-                        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div className="max-w-6xl mx-auto px-4 py-8 pt-24">
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-12 text-center">
+          Leave Application Form
+        </h1>
 
-                        {/* Roll Number */}
-                        <div className="flex items-center space-x-4">
-                          <div className="p-3 bg-gray-100 rounded-full">
-                            <Clock className="text-purple-700" size={20} />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">
-                              Roll Number
-                            </p>
-                            <p className="text-gray-900 font-semibold">
-                              {application.student_information.roll_no}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Start Date */}
-                        <div className="flex items-center space-x-4">
-                          <div className="p-3 bg-gray-100 rounded-full">
-                            <Calendar className="text-purple-700" size={20} />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">
-                              Start Date
-                            </p>
-                            <p className="text-gray-900 font-semibold">
-                              {new Date(
-                                application.leave_details.leave_start_date
-                              ).toLocaleDateString()}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* End Date */}
-                        <div className="flex items-center space-x-4">
-                          <div className="p-3 bg-gray-100 rounded-full">
-                            <Calendar className="text-purple-700" size={20} />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">
-                              End Date
-                            </p>
-                            <p className="text-gray-900 font-semibold">
-                              {new Date(
-                                application.leave_details.leave_end_date
-                              ).toLocaleDateString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Reason */}
-                      <div className="mt-4">
-                        <div className="flex items-start space-x-4">
-                          <div className="p-3 bg-gray-100 rounded-full">
-                            <Clock className="text-purple-700" size={20} />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500 mb-2">
-                              Reason
-                            </p>
-                            <p className="text-gray-900">
-                              {application.leave_details.reason_for_leave}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+        <div className="flex flex-col items-center gap-8 justify-center">
+          <div className="lg:w-[600px]">
+            <form onSubmit={handleSubmit} className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 sticky top-8 border border-gray-100">
+              {/* Progress Indicator */}
+              <div className="flex justify-between mb-8">
+                {['student_information', 'parent_information', 'leave_details'].map((section, index) => (
+                  <button
+                    key={section}
+                    type="button"
+                    onClick={() => setActiveSection(section)}
+                    className={`flex flex-col items-center group ${index !== 2 ? 'flex-1' : ''}`}
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-2 transition-all duration-300 ${
+                      activeSection === section 
+                        ? 'bg-purple-600 text-white' 
+                        : 'bg-gray-200 text-gray-500 group-hover:bg-purple-200'
+                    }`}>
+                      {index + 1}
                     </div>
+                    <div className="h-1 flex-1 bg-gray-200 group-hover:bg-purple-200"/>
+                  </button>
+                ))}
+              </div>
 
-                    {/* Right Section: Status */}
-                    <div className="col-span-1 flex items-center justify-end">
-                      <div className="flex items-center space-x-4">
-                        <div className={`p-3 ${statusDetails.color} rounded-full`}>
-                          {statusDetails.icon}
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-500">
-                            Status
-                          </p>
-                          <p className="text-gray-900 font-semibold capitalize">
-                            {application.status}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+              {/* Student Information Section */}
+              <div className={`transition-all duration-300 ${activeSection === 'student_information' ? 'opacity-100' : 'opacity-50'}`}>
+                <div className="flex items-center mb-6">
+                  <UserCircle className="w-6 h-6 text-purple-600 mr-2" />
+                  <h3 className="text-2xl font-bold text-gray-800">Student Information</h3>
+                </div>
+                <div className="space-y-4">
+                  {renderInput('student_information', 'student_name', 'Full Name')}
+                  {renderInput('student_information', 'roll_no', 'Roll Number')}
+                  {renderInput('student_information', 'student_email', 'Email Address', useremail)}
+                </div>
+              </div>
+
+              {/* Parent Information Section */}
+              <div className={`mt-8 transition-all duration-300 ${activeSection === 'parent_information' ? 'opacity-100' : 'opacity-50'}`}>
+                <div className="flex items-center mb-6">
+                  <Users className="w-6 h-6 text-purple-600 mr-2" />
+                  <h3 className="text-2xl font-bold text-gray-800">Parent Information</h3>
+                </div>
+                <div className="space-y-4">
+                  {renderInput('parent_information', 'parent_name', "Parent's Name")}
+                  {renderInput('parent_information', 'parent_email', "Parent's Email", 'email')}
+                </div>
+              </div>
+
+              {/* Leave Details Section */}
+              <div className={`mt-8 transition-all duration-300 ${activeSection === 'leave_details' ? 'opacity-100' : 'opacity-50'}`}>
+                <div className="flex items-center mb-6">
+                  <Calendar className="w-6 h-6 text-purple-600 mr-2" />
+                  <h3 className="text-2xl font-bold text-gray-800">Leave Details</h3>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label className={labelClassName}>
+                      Reason for Leave<span className="text-red-500 ml-1">*</span>
+                    </label>
+                    <textarea
+                      name="reason_for_leave"
+                      value={formData.leave_details.reason_for_leave}
+                      onChange={(e) => handleChange(e, 'leave_details')}
+                      rows="4"
+                      className={`${inputClassName} resize-none ${validationErrors.leave_details?.reason_for_leave ? 'border-red-500' : ''}`}
+                      placeholder="Please provide detailed reason for leave"
+                    />
+                    {validationErrors.leave_details?.reason_for_leave && (
+                      <p className="text-red-500 text-sm mt-1">{validationErrors.leave_details.reason_for_leave}</p>
+                    )}
+                  </div>
+                  <div className="flex gap-4">
+                    {renderInput('leave_details', 'leave_start_date', 'Start Date', 'date')}
+                    {renderInput('leave_details', 'leave_end_date', 'End Date', 'date')}
+                  </div>
+                  <div>
+                    <label className={labelClassName}>
+                      Additional Comments
+                    </label>
+                    <textarea
+                      name="comments"
+                      value={formData.additional_information.comments}
+                      onChange={(e) => handleChange(e, 'additional_information')}
+                      rows="2"
+                      className={`${inputClassName} resize-none`}
+                      placeholder="Any additional comments (optional)"
+                    />
                   </div>
                 </div>
-              );
-            })
-          )}
-        </div>
+              </div>
 
-        {applications.length > 0 && (
-          <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1 || loading}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Previous
-            </button>
-            <span className="text-sm text-gray-700">
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages || loading}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Next 
-            </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-102 mt-8 text-lg uppercase tracking-wide disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <Clock className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+                    Submitting...
+                  </div>
+                ) : (
+                  'Submit Application'
+                )}
+              </button>
+            </form>
           </div>
-        )}
+
+          <div className="flex w-full justify-center py-10">
+            <div className="w-full lg:w-[1000px]">
+              <div className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-6">
+                <div className="flex items-center mb-6">
+                  <FileText className="w-6 h-6 text-purple-600 mr-2" />
+                  <h2 className="text-2xl font-bold text-gray-800">Previous Applications</h2>
+                </div>
+                <LeaveTable />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default LeaveApplication;
+export default LeaveApplicationForm;

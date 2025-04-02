@@ -11,6 +11,7 @@ import useFacultySignup from "./routes/Faculty/FacultySignRoute.js"
 import useFacultyLogin from "./routes/Faculty/FacultyLogin.js"
 import usefacultyAvaibility from "./routes/Faculty/FacultyRoute.js"
 import useLeave from "./routes/LeavRoute.js"
+import useEvent from "./routes/EventRoute.js"
 import useCheating from "./routes/CheatingRoute/CheatingRoute.js"
 import useAssignment from "./routes/Assigment/Assigment.js"
 import useUpdateAssigment from "./routes/Assigment/AdminRoute.js"
@@ -62,6 +63,7 @@ app.use(useElection);
 app.use(useBooking)
 app.use(useFacultySignup)
 app.use(useLeave)
+app.use(useEvent)
 app.use(useFacultyLogin)
 app.use(usefacultyAvaibility)
 app.use(useCheating)
